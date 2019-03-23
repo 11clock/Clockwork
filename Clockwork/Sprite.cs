@@ -102,19 +102,6 @@ namespace Clockwork
 		{
 			Frame = Rng.RandRange(TotalFrames);
 		}
-		
-		public void Draw(SpriteBatch spriteBatch, Vector2 position)
-		{
-			int width = Texture.Width / Cols;
-			int height = Texture.Height / Rows;
-			int row = (int)(Frame / (float)Cols);
-			int column = Frame % Cols;
- 
-			Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
-			Rectangle destinationRectangle = new Rectangle((int)position.X - (int)Origin.X, (int)position.Y - (int)Origin.Y, width, height);
-			
-			spriteBatch.Draw(Texture, destinationRectangle, sourceRectangle, Blend);
-		}
 
 		public Vector2 GetFocalPosition(Vector2 drawPosition, Alignment focal)
 		{

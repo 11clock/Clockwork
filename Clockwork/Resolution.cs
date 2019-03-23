@@ -14,7 +14,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Clockwork
 {
-	public static class Resolution
+	internal static class Resolution
 	{
 		
 		public static readonly Color BackgroundColor = new Color(14, 7, 27);

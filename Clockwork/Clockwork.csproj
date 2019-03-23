@@ -42,13 +42,17 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BBox.cs" />
     <Compile Include="ClockworkGame.cs" />
-    <Compile Include="BasicObject.cs" />
-    <Compile Include="Enums.cs" />
+    <Compile Include="CG.cs" />
     <Compile Include="GameObject.cs" />
+    <Compile Include="Canvas.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="SpatialObject.cs" />
     <Compile Include="Libraries\ContentLib.cs" />
     <Compile Include="Libraries\Libs.cs" />
     <Compile Include="MatrixVector.cs" />
+    <Compile Include="Processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resolution.cs" />
     <Compile Include="Sprite.cs" />

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Clockwork.Libraries;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -10,9 +11,7 @@ namespace Clockwork
 	public class ClockworkGame : Game
 	{
 		private GraphicsDeviceManager _graphics;
-		SpriteBatch _spriteBatch;
-
-		private State _currentState;
+		private SpriteBatch _spriteBatch;
 
 		public ClockworkGame(int virtualWidth = 624, int virtualHeight = 360, int windowWidth = 1280, int windowHeight = 720, State initialState = null, bool startFullscreen = false)
 		{
@@ -23,8 +22,8 @@ namespace Clockwork
 			Resolution.SetVirtualResolution(virtualWidth, virtualHeight);
 			Resolution.SetResolution(windowWidth, windowHeight, startFullscreen);
 
-			_currentState = initialState;
-			initialState?.StartInitialize();
+			CG.State = initialState;
+			initialState?.Initialize();
 
 			IsMouseVisible = true;
 		}
@@ -50,8 +49,8 @@ namespace Clockwork
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
 			_spriteBatch = new SpriteBatch(GraphicsDevice);
-
-			// TODO: use this.Content to load your game content here
+			Canvas.SpriteBatch = _spriteBatch;
+			Libs.Load(Content);
 		}
 
 		/// <summary>
@@ -78,8 +77,17 @@ namespace Clockwork
 			// TODO: Add your update logic here
 			
 			Time.Delta = (float) gameTime.ElapsedGameTime.TotalSeconds;
+			CG.State.PreUpdate();
+			CG.State.BeginUpdate();
+			CG.State.Update();
+			CG.State.EndUpdate();
 			
-			_currentState.Update();
+			foreach (GameObject go in CG.State.RemoveQueue)
+			{
+				go.OnRemove();
+				CG.State.Objects.Remove(go);
+			}
+			CG.State.RemoveQueue.Clear();
 			
 			base.Update(gameTime);
 		}
@@ -90,9 +98,10 @@ namespace Clockwork
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
-
-			// TODO: Add your drawing code here
+			Resolution.BeginDraw();
+			_spriteBatch.Begin(transformMatrix: Resolution.GetTransformationMatrix(), samplerState: SamplerState.PointClamp);
+			CG.State.Draw();
+			_spriteBatch.End();
 
 			base.Draw(gameTime);
 		}
