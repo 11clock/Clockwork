@@ -1,4 +1,4 @@
-﻿namespace Clockwork
+namespace Clockwork.DataTypes
 {
 	public enum Alignment
 	{
@@ -12,8 +12,8 @@
 		Bottom,
 		BottomRight
 	}
-
-	public enum MouseButtons
+	
+	public enum MouseButton
 	{
 		Left,
 		Right

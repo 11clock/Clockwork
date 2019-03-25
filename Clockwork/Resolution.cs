@@ -16,9 +16,8 @@ namespace Clockwork
 {
 	internal static class Resolution
 	{
-		
 		public static readonly Color BackgroundColor = new Color(14, 7, 27);
-		
+
 		private static GraphicsDeviceManager _device = null;
 
 		private static int _width = 800;
@@ -44,7 +43,7 @@ namespace Clockwork
 		public static Matrix GetTransformationMatrix()
 		{
 			if (_dirtyMatrix) RecreateScaleMatrix();
-			
+
 			return _scaleMatrix;
 		}
 
@@ -55,7 +54,7 @@ namespace Clockwork
 
 			_fullScreen = fullScreen;
 
-		   ApplyResolutionSettings();
+			ApplyResolutionSettings();
 		}
 
 		public static void SetVirtualResolution(int width, int height)
@@ -67,50 +66,49 @@ namespace Clockwork
 		}
 
 		private static void ApplyResolutionSettings()
-	   {
-
+		{
 #if XBOX360
 		   _FullScreen = true;
 #endif
 
-		   // If we aren't using a full screen mode, the height and width of the window can
-		   // be set to anything equal to or smaller than the actual screen size.
-		   if (_fullScreen == false)
-		   {
-			   if ((_width <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width)
-				   && (_height <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height))
-			   {
-				   _device.PreferredBackBufferWidth = _width;
-				   _device.PreferredBackBufferHeight = _height;
-				   _device.IsFullScreen = _fullScreen;
-				   _device.ApplyChanges();
-			   }
-		   }
-		   else
-		   {
-			   // If we are using full screen mode, we should check to make sure that the display
-			   // adapter can handle the video mode we are trying to set.  To do this, we will
-			   // iterate through the display modes supported by the adapter and check them against
-			   // the mode we want to set.
-			   foreach (DisplayMode dm in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
-			   {
-				   // Check the width and height of each mode against the passed values
-				   if ((dm.Width == _width) && (dm.Height == _height))
-				   {
-					   // The mode is supported, so set the buffer formats, apply changes and return
-					   _device.PreferredBackBufferWidth = _width;
-					   _device.PreferredBackBufferHeight = _height;
-					   _device.IsFullScreen = _fullScreen;
-					   _device.ApplyChanges();
-				   }
-			   }
-		   }
+			// If we aren't using a full screen mode, the height and width of the window can
+			// be set to anything equal to or smaller than the actual screen size.
+			if (_fullScreen == false)
+			{
+				if ((_width <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width)
+					&& (_height <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height))
+				{
+					_device.PreferredBackBufferWidth = _width;
+					_device.PreferredBackBufferHeight = _height;
+					_device.IsFullScreen = _fullScreen;
+					_device.ApplyChanges();
+				}
+			}
+			else
+			{
+				// If we are using full screen mode, we should check to make sure that the display
+				// adapter can handle the video mode we are trying to set.  To do this, we will
+				// iterate through the display modes supported by the adapter and check them against
+				// the mode we want to set.
+				foreach (DisplayMode dm in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
+				{
+					// Check the width and height of each mode against the passed values
+					if ((dm.Width == _width) && (dm.Height == _height))
+					{
+						// The mode is supported, so set the buffer formats, apply changes and return
+						_device.PreferredBackBufferWidth = _width;
+						_device.PreferredBackBufferHeight = _height;
+						_device.IsFullScreen = _fullScreen;
+						_device.ApplyChanges();
+					}
+				}
+			}
 
-		   _dirtyMatrix = true;
+			_dirtyMatrix = true;
 
-		   _width =   _device.PreferredBackBufferWidth;
-		   _height = _device.PreferredBackBufferHeight;
-	   }
+			_width = _device.PreferredBackBufferWidth;
+			_height = _device.PreferredBackBufferHeight;
+		}
 
 		/// <summary>
 		/// Sets the device to use the draw pump
@@ -134,9 +132,9 @@ namespace Clockwork
 		{
 			_dirtyMatrix = false;
 			_scaleMatrix = Matrix.CreateScale(
-						   (float)_device.GraphicsDevice.Viewport.Width / _vWidth,
-						   (float)_device.GraphicsDevice.Viewport.Width / _vWidth,
-						   1f);
+				(float) _device.GraphicsDevice.Viewport.Width / _vWidth,
+				(float) _device.GraphicsDevice.Viewport.Width / _vWidth,
+				1f);
 		}
 
 
@@ -155,7 +153,7 @@ namespace Clockwork
 		/// <returns>aspect ratio</returns>
 		public static float GetVirtualAspectRatio()
 		{
-			return (float)_vWidth / (float)_vHeight;
+			return (float) _vWidth / (float) _vHeight;
 		}
 
 		public static void ResetViewport()
@@ -163,14 +161,14 @@ namespace Clockwork
 			float targetAspectRatio = GetVirtualAspectRatio();
 			// figure out the largest area that fits in this resolution at the desired aspect ratio
 			int width = _device.PreferredBackBufferWidth;
-			int height = (int)(width / targetAspectRatio + .5f);
+			int height = (int) (width / targetAspectRatio + .5f);
 			bool changed = false;
-			
+
 			if (height > _device.PreferredBackBufferHeight)
 			{
 				height = _device.PreferredBackBufferHeight;
 				// PillarBox
-				width = (int)(height * targetAspectRatio + .5f);
+				width = (int) (height * targetAspectRatio + .5f);
 				changed = true;
 			}
 
@@ -192,6 +190,5 @@ namespace Clockwork
 			_device.GraphicsDevice.Viewport = viewport;
 			Viewport = _device.GraphicsDevice.Viewport;
 		}
-
 	}
 }

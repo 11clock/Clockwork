@@ -1,4 +1,7 @@
-﻿using Clockwork.Libraries;
+﻿using System;
+using Clockwork.Input;
+using Clockwork.Libraries;
+using Clockwork.Process;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,24 +11,33 @@ namespace Clockwork
 	/// <summary>
 	/// This is the main type for your game.
 	/// </summary>
-	public class ClockworkGame : Game
+	public class CGame : Game
 	{
+		internal static CGame Game;
+
 		private GraphicsDeviceManager _graphics;
 		private SpriteBatch _spriteBatch;
 
-		public ClockworkGame(int virtualWidth = 624, int virtualHeight = 360, int windowWidth = 1280, int windowHeight = 720, State initialState = null, bool startFullscreen = false)
+		internal Scene QueuedScene = null;
+
+		private Scene _currentScene = null;
+
+		public static Scene CurrentScene => Game._currentScene;
+
+		public CGame(Scene initialScene, int virtualWidth = 624, int virtualHeight = 360, int windowWidth = 1280,
+			int windowHeight = 720, bool startFullscreen = false)
 		{
+			Game = this;
 			_graphics = new GraphicsDeviceManager(this);
 			Resolution.Init(ref _graphics);
 			Content.RootDirectory = "Content";
-			
+
 			Resolution.SetVirtualResolution(virtualWidth, virtualHeight);
 			Resolution.SetResolution(windowWidth, windowHeight, startFullscreen);
 
-			CG.State = initialState;
-			initialState?.Initialize();
-
 			IsMouseVisible = true;
+
+			QueuedScene = initialScene;
 		}
 
 		/// <summary>
@@ -36,9 +48,8 @@ namespace Clockwork
 		/// </summary>
 		protected override void Initialize()
 		{
-			// TODO: Add your initialization logic here
-
 			base.Initialize();
+			InitializeQueuedScene();
 		}
 
 		/// <summary>
@@ -69,26 +80,35 @@ namespace Clockwork
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
+			VKeyboard.UpdateState();
 			VMouse.UpdateState();
-			
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+
+			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+				Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
 			// TODO: Add your update logic here
-			
+
 			Time.Delta = (float) gameTime.ElapsedGameTime.TotalSeconds;
-			CG.State.PreUpdate();
-			CG.State.BeginUpdate();
-			CG.State.Update();
-			CG.State.EndUpdate();
-			
-			foreach (GameObject go in CG.State.RemoveQueue)
+			_currentScene.PreUpdate();
+			_currentScene.BeginUpdate();
+			_currentScene.Update();
+			_currentScene.EndUpdate();
+			_currentScene.PostUpdate();
+
+			foreach (BaseObject go in _currentScene.RemoveQueue)
 			{
 				go.OnRemove();
-				CG.State.Objects.Remove(go);
+				_currentScene.Objects.Remove(go);
 			}
-			CG.State.RemoveQueue.Clear();
-			
+
+			_currentScene.RemoveQueue.Clear();
+
+			if (QueuedScene != null)
+			{
+				InitializeQueuedScene();
+			}
+
 			base.Update(gameTime);
 		}
 
@@ -99,11 +119,27 @@ namespace Clockwork
 		protected override void Draw(GameTime gameTime)
 		{
 			Resolution.BeginDraw();
-			_spriteBatch.Begin(transformMatrix: Resolution.GetTransformationMatrix(), samplerState: SamplerState.PointClamp);
-			CG.State.Draw();
+			_spriteBatch.Begin(transformMatrix: Resolution.GetTransformationMatrix(),
+				samplerState: SamplerState.PointClamp);
+			_currentScene.Draw();
 			_spriteBatch.End();
 
 			base.Draw(gameTime);
+		}
+
+		private void InitializeQueuedScene()
+		{
+			if (_currentScene != null)
+			{
+				foreach (BaseObject go in _currentScene.Objects)
+				{
+					go.OnSceneEnd();
+				}
+			}
+
+			_currentScene = QueuedScene;
+			QueuedScene = null;
+			_currentScene.Initialize();
 		}
 	}
 }

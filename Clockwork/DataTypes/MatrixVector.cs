@@ -1,6 +1,6 @@
 using System;
 
-namespace Clockwork
+namespace Clockwork.DataTypes
 {
 	public struct MatrixVector : IEquatable<MatrixVector>
 	{
@@ -52,7 +52,7 @@ namespace Clockwork
 				return false;
 			}
 
-			MatrixVector other = (MatrixVector)obj;
+			MatrixVector other = (MatrixVector) obj;
 			return other.Row == Row && other.Col == Col;
 		}
 

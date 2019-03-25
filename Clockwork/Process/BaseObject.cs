@@ -1,13 +1,11 @@
 ﻿using System;
-using Microsoft.Xna.Framework.Graphics;
 
-namespace Clockwork
+namespace Clockwork.Process
 {
-	public abstract class GameObject : Processor, IComparable<GameObject>
+	public abstract class BaseObject : Processor, IComparable<BaseObject>
 	{
-		
 		private static int _instanceIdCounter;
-		
+
 		public long InstanceId { get; private set; }
 
 		public int UpdateOrder { get; set; }
@@ -30,18 +28,20 @@ namespace Clockwork
 			Initialize();
 			Initialized = true;
 		}
-		
+
 		public virtual void OnAdd()
 		{
-			
 		}
 
 		public virtual void OnRemove()
 		{
-
 		}
 
-		public int CompareTo(GameObject obj)
+		public virtual void OnSceneEnd()
+		{
+		}
+
+		public int CompareTo(BaseObject obj)
 		{
 			if (InstanceId > obj.InstanceId)
 				return 1;

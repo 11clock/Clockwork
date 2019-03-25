@@ -8,7 +8,7 @@ namespace Clockwork.Libraries
 		public static ContentLib<Texture2D> Textures { get; private set; }
 		public static ContentLib<SpriteFont> SpriteFonts { get; private set; }
 
-		public static void Load(ContentManager content)
+		internal static void Load(ContentManager content)
 		{
 			content.Unload();
 			Textures = new ContentLib<Texture2D>(content);

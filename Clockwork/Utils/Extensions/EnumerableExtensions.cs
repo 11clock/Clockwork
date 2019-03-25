@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Clockwork.DataTypes;
 
 namespace Clockwork.Utils.Extensions
 {
@@ -17,7 +18,7 @@ namespace Clockwork.Utils.Extensions
 						return new MatrixVector(row, col);
 				}
 			}
-		
+
 			return new MatrixVector(-1, -1);
 		}
 
@@ -25,7 +26,7 @@ namespace Clockwork.Utils.Extensions
 		{
 			return matrix.GetLength(0);
 		}
-		
+
 		public static int GetCols<T>(this T[,] matrix)
 		{
 			return matrix.GetLength(1);
@@ -35,7 +36,7 @@ namespace Clockwork.Utils.Extensions
 		{
 			return matrix[coords.Row, coords.Col];
 		}
-		
+
 		public static void SetValue<T>(this T[,] matrix, T value, MatrixVector coords)
 		{
 			matrix[coords.Row, coords.Col] = value;
