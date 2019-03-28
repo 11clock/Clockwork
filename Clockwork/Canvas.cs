@@ -20,6 +20,8 @@ namespace Clockwork
 		{
 			if (sprite == null)
 				return;
+			if (sprite.Cols <= 0 || sprite.Rows <= 0)
+				return;
 
 			int width = sprite.Width;
 			int height = sprite.Height;

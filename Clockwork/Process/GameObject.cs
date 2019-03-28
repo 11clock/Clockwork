@@ -20,7 +20,8 @@ namespace Clockwork.Process
 			set => Position = new Vector2(Position.X, value);
 		}
 
-		public Image Image { get; } = new Image();
+		public Image Image { get; }
+		public Animator Animator { get; }
 
 		public Sprite Sprite
 		{
@@ -32,10 +33,16 @@ namespace Clockwork.Process
 		public Vector2 TopLeft => BBox != null ? Position - BBox.Origin : Position;
 		public Vector2 BottomRight => BBox != null ? Position + BBox.Size - Vector2.One - BBox.Origin : Position;
 
+		public GameObject()
+		{
+			Image = new Image();
+			Animator = new Animator(Image);
+		}
+		
 		internal override void PreUpdate()
 		{
 			base.PreUpdate();
-			Image.UpdateAnimation();
+			Animator.Update();
 		}
 
 		public override void Draw()

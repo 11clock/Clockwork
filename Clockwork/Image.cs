@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Clockwork.Utils;
 using Microsoft.Xna.Framework;
 
@@ -6,14 +7,13 @@ namespace Clockwork
 	public class Image
 	{
 		private Sprite _sprite;
-
 		public Sprite Sprite
 		{
 			get => _sprite;
 			set
 			{
 				_sprite = value;
-				Subimage = 0f;
+				Subimage = 0;
 			}
 		}
 
@@ -26,26 +26,19 @@ namespace Clockwork
 
 		public Vector2 Scale { get; set; } = Vector2.One;
 		public Color Color { get; set; } = Color.White;
-		public float Fps { get; set; } = 15f;
 		public bool FlipX { get; set; }
 		public bool FlipY { get; set; }
 
-		private float _subimage;
-
-		public float Subimage
+		private int _subimage;
+		public int Subimage
 		{
 			get => _subimage;
-			set => _subimage = Mathf.Wrap(value, 0f, Sprite?.SubimageCount ?? 0f);
+			set => _subimage = Mathf.Wrap(value, 0, Sprite.SubimageCount);
 		}
-		
-		internal void UpdateAnimation()
-		{
-			if (_sprite == null)
-				return;
-			if (Fps == 0f)
-				return;
 
-			Subimage += Fps * Time.Delta;
+		public int GetRandomSubimage()
+		{
+			return Sprite != null ? Rng.RandRange(Sprite.SubimageCount) : 0;
 		}
 	}
 }

@@ -42,12 +42,15 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Animation.cs" />
+    <Compile Include="Animator.cs" />
     <Compile Include="BBox.cs" />
     <Compile Include="CGame.cs" />
     <Compile Include="DataTypes\MatrixVector.cs" />
     <Compile Include="Canvas.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Image.cs" />
+    <Compile Include="Input\MouseButtons.cs" />
     <Compile Include="Input\VKeyboard.cs" />
     <Compile Include="Input\VMouse.cs" />
     <Compile Include="Process\BaseObject.cs" />
@@ -65,6 +68,7 @@
     <Compile Include="Utils\Mathf.cs" />
     <Compile Include="Utils\MathfEx.cs" />
     <Compile Include="Utils\Rng.cs" />
+    <Compile Include="Utils\CommonUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

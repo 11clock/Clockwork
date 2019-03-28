@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.Xna.Framework.Input;
 
 namespace Clockwork.Input
@@ -21,6 +22,12 @@ namespace Clockwork.Input
 		{
 			return _newState.IsKeyUp(key) && _oldState.IsKeyDown(key);
 		}
+
+		public static Keys[] HeldKeys => _newState.GetPressedKeys();
+
+		public static Keys[] PressedKeys => _newState.GetPressedKeys().Where(k => _oldState.IsKeyUp(k)).ToArray();
+
+		public static Keys[] ReleasedKeys => _oldState.GetPressedKeys().Where(k => _newState.IsKeyUp(k)).ToArray();
 
 		internal static void UpdateState()
 		{

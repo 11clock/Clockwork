@@ -12,10 +12,4 @@
 		Bottom,
 		BottomRight
 	}
-
-	public enum MouseButtons
-	{
-		Left,
-		Right
-	}
 }
