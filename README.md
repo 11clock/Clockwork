@@ -33,6 +33,7 @@ Works, but barebones and not yet useful.
 - Animation: Individual Frame Delays (have some frames last longer than others without needing to register them multiple times)
 - Animation: Callbacks
 - Basic Audio
+- More Game Control (fullscreen, changing window size post-launch, stretched mode)
 
 ### Under Consideration
 
@@ -41,6 +42,7 @@ Works, but barebones and not yet useful.
 - Animation As Resource, Editor
 - Nested Objects (objects as components)
 - Content Library Management (group content into different libraries and load and unload them as needed)
+- Correcting Imperfect Pixel Scaling
 
 ### Not Planned
 
