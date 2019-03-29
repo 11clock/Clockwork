@@ -39,6 +39,7 @@ Works, but barebones and not yet useful.
 - Sprite As Resource, Editor
 - Animation As Resource, Editor
 - Nested Objects (objects as components)
+- Content Library Management (group content into different libraries and load and unload them as needed)
 
 ## Why?
 
