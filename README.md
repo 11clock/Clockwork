@@ -11,34 +11,34 @@ Works, but barebones and not yet useful.
 
 ### Current
 
-Core Game Loop
-Virtual Resolution (consistent ingame resolution across all screens)
-Content Libraries
-Scenes & Objects
-Sprites & Images, Drawing
-Sprite Animations
-Keyboard & Mouse Input
-Delta Time
-Mouse Detection On Game Objects
+- Core Game Loop
+- Virtual Resolution (consistent ingame resolution across all screens)
+- Content Libraries
+- Scenes & Objects
+- Sprites & Images, Drawing
+- Sprite Animations
+- Keyboard & Mouse Input
+- Delta Time
+- Mouse Detection On Game Objects
 
 ### Planned
 
-Alarm Clock (delayed method calls)
-Collision Masks & Checking
-Cameras
-Drawing Text
-Scene Enhancements, Groups
-Tile Maps, Ogmo and Tiled Support
-Aseprite Metadata As Resource (converting Aseprite metadata into sprites and animations)
-Animation: Individual Frame Delays (have some frames last longer than others without needing to register them multiple times)
-Animation: Callbacks
+- Alarm Clock (delayed method calls)
+- Collision Masks & Checking
+- Cameras
+- Drawing Text
+- Scene Enhancements, Groups
+- Tile Maps, Ogmo and Tiled Support
+- Aseprite Metadata As Resource (converting Aseprite metadata into sprites and animations)
+- Animation: Individual Frame Delays (have some frames last longer than others without needing to register them multiple times)
+- Animation: Callbacks
 
 ### Under Consideration
 
-Multi-Frame Collision Masks, Attaching Them To Sprites
-Sprite As Resource, Editor
-Animation As Resource, Editor
-Nested Objects
+- Multi-Frame Collision Masks, Attaching Them To Sprites
+- Sprite As Resource, Editor
+- Animation As Resource, Editor
+- Nested Objects (objects as components)
 
 ## Why?
 
