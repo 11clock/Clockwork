@@ -5,7 +5,7 @@ Its structure is based on a hybrid of GameMaker and HaxeFlixel, taking the best 
 
 ## Status
 
-Completely broken, don't use yet.
+Works, but barebones and not yet useful.
 
 ## Why?
 
