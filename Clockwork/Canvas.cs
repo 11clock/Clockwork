@@ -28,7 +28,14 @@ namespace Clockwork
 			int row = (int) ((subimage % sprite.SubimageCount) / (float) sprite.Cols);
 			int column = (subimage % sprite.SubimageCount) % sprite.Cols;
 
-			Rectangle sourceRectangle = new Rectangle(width * column, height * row, width, height);
+			Rectangle sourceRectangle = new Rectangle(width * column + sprite.HOffset, height * row + sprite.VOffset, width, height);
+
+			if (sourceRectangle.X + sourceRectangle.Width > sprite.Texture.Width ||
+				sourceRectangle.Y + sourceRectangle.Height > sprite.Texture.Height ||
+				sourceRectangle.X < 0f || sourceRectangle.Y < 0f )
+			{
+				return;
+			}
 
 			Vector2 fscale = scale ?? Vector2.One;
 			Color fcolor = color ?? Color.White;

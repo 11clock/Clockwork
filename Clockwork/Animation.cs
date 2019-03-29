@@ -4,6 +4,8 @@ namespace Clockwork
 	{
 		public Animator Parent { get; }
 		public string Name { get; }
+		
+		public Sprite Sprite { get; }
 
 		public int CurrentSubimage
 		{
@@ -35,6 +37,9 @@ namespace Clockwork
 			get => _currentFrame;
 			set
 			{
+				if (Sprite != null)
+					Parent.Image.Sprite = Sprite;
+				
 				int lastFrame = FrameCount - 1;
 				int tempFrame = Reversed ? lastFrame - value : value;
 
@@ -77,8 +82,7 @@ namespace Clockwork
 		private int _currentFrame;
 		private int _currentSubimage;
 
-		public Animation(Animator parent, string name, int[] subimages, float fps, bool looped = true,
-			bool flipX = false, bool flipY = false)
+		public Animation(Animator parent, string name, int[] subimages, float fps, bool looped = true, Sprite sprite = null)
 		{
 			Parent = parent;
 			Name = name;
@@ -86,6 +90,7 @@ namespace Clockwork
 			Fps = fps;
 			Subimages = subimages;
 			Looped = looped;
+			Sprite = sprite;
 		}
 
 		public void Play(bool forceRestart = false, bool reversed = false, int startingFrame = 0)

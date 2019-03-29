@@ -66,23 +66,35 @@ namespace Clockwork
 			_animations.Clear();
 		}
 
-		public void Add(string name, int[] subimages, float fps, bool looped = true)
+		public void Add(string name, int[] subimages, float fps, bool looped = true, Sprite sprite = null)
 		{
 			if (subimages.Length > 0)
 			{
-				Animation animation = new Animation(this, name, subimages.ToArray(), fps, looped);
+				Animation animation = new Animation(this, name, subimages.ToArray(), fps, looped, sprite);
 				_animations[name] = animation;
 			}
 		}
 		
-		public void Add(string name, int subimage, bool looped = true)
+		public void Add(string name, int subimage, bool looped = true, Sprite sprite = null)
 		{
-			Add(name, new []{subimage}, 0f, looped);
+			Add(name, new []{subimage}, 0f, looped, sprite);
 		}
 		
-		public void AddRange(string name, int firstSubimage, int lastSubimage, float fps, bool looped = true)
+		public void AddRange(string name, int firstSubimage, int lastSubimage, float fps, bool looped = true, Sprite sprite = null)
 		{
-			Add(name, CommonUtils.Sequence(firstSubimage, lastSubimage).ToArray(), fps, looped);
+			Add(name, CommonUtils.Sequence(firstSubimage, lastSubimage).ToArray(), fps, looped, sprite);
+		}
+
+		public void AddAll(string name, float fps, bool looped = true, Sprite sprite = null)
+		{
+			if (sprite == null)
+			{
+				AddRange(name, 0, Image.Sprite.SubimageCount - 1, fps, looped);
+			}
+			else
+			{
+				AddRange(name, 0, sprite.SubimageCount - 1, fps, looped, sprite);
+			}
 		}
 
 		public void Remove(string name)
