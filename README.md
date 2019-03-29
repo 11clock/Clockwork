@@ -43,6 +43,7 @@ Works, but barebones and not yet useful.
 - Nested Objects (objects as components)
 - Content Library Management (group content into different libraries and load and unload them as needed)
 - Correcting Imperfect Pixel Scaling
+- Custom-Made Content Pipeline
 
 ### Not Planned
 
