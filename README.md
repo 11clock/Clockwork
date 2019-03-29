@@ -45,8 +45,8 @@ Works, but barebones and not yet useful.
 ### Not Planned
 
 - FMOD: Proprietary audio library, integrate it into your project yourself if you want to use it.
-- Physics: This engine is focused towards pixel art, where advanced physics usually aren't needed. I don't recommend usng a physics engine if your game doesn't require it. If you really do need it, integrate an existing library on your own.
-- 3D: Falls well outside the scope of this engine. Again, pixel art.
+- Physics: This engine is focused towards pixel art, where advanced physics usually aren't needed. I don't recommend using a physics engine if your game doesn't require it. If you really do need it, integrate an existing library on your own.
+- 3D
 
 ## Why?
 
