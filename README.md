@@ -35,6 +35,7 @@ Works, but barebones and not yet useful.
 - Animation: Callbacks
 - Basic Audio
 - More Game Control (fullscreen, changing window size post-launch, stretched mode)
+- Gamepad Input
 
 ### Under Consideration
 
