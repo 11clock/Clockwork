@@ -18,7 +18,7 @@ Works, but barebones and not yet useful.
 - Sprites & Images, Drawing
 - Sprite Animations
 - Keyboard & Mouse Input
-- Delta Time
+- Delta Time (fixed update loop for consistent behavior)
 - Mouse Detection On Game Objects
 - RNG
 
