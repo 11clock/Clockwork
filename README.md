@@ -32,6 +32,7 @@ Works, but barebones and not yet useful.
 - Aseprite Metadata As Resource (converting Aseprite metadata into sprites and animations)
 - Animation: Individual Frame Delays (have some frames last longer than others without needing to register them multiple times)
 - Animation: Callbacks
+- Basic Audio
 
 ### Under Consideration
 
@@ -40,6 +41,12 @@ Works, but barebones and not yet useful.
 - Animation As Resource, Editor
 - Nested Objects (objects as components)
 - Content Library Management (group content into different libraries and load and unload them as needed)
+
+### Not Planned
+
+- FMOD: Proprietary audio library, integrate it into your project yourself if you want to use it.
+- Physics: This engine is focused towards pixel art, where advanced physics usually aren't needed. I don't recommend usng a physics engine if your game doesn't require it. If you really do need it, integrate an existing library on your own.
+- 3D: Falls well outside the scope of this engine. Again, pixel art.
 
 ## Why?
 
