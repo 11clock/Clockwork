@@ -20,6 +20,7 @@ Works, but barebones and not yet useful.
 - Keyboard & Mouse Input
 - Delta Time
 - Mouse Detection On Game Objects
+- RNG
 
 ### Planned
 
