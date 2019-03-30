@@ -21,10 +21,10 @@ Works, but barebones and not yet useful.
 - Delta Time (fixed update loop for consistent behavior)
 - Mouse Detection On Game Objects
 - RNG
+- Alarm Clock (delayed method calls)
 
 ### Planned
 
-- Alarm Clock (delayed method calls)
 - Collision Masks & Checking
 - Cameras
 - Drawing Text
