@@ -5,7 +5,53 @@ Its structure is based on a hybrid of GameMaker and HaxeFlixel, taking the best 
 
 ## Status
 
-Completely broken, don't use yet.
+Works, but barebones and not yet useful.
+
+## Features
+
+### Current
+
+- Core Game Loop
+- Virtual Resolution (consistent ingame resolution across all screens)
+- Content Libraries
+- Scenes & Objects
+- Sprites & Images, Drawing
+- Sprite Animations
+- Keyboard & Mouse Input
+- Delta Time (fixed update loop for consistent behavior)
+- Mouse Detection On Game Objects
+- RNG
+
+### Planned
+
+- Alarm Clock (delayed method calls)
+- Collision Masks & Checking
+- Cameras
+- Drawing Text
+- Scene Enhancements, Groups
+- Tile Maps, Ogmo and Tiled Support
+- Aseprite Metadata As Resource (converting Aseprite metadata into sprites and animations)
+- Animation: Individual Frame Delays (have some frames last longer than others without needing to register them multiple times)
+- Animation: Callbacks
+- Basic Audio
+- More Game Control (fullscreen, changing window size post-launch, stretched mode)
+- Gamepad Input
+
+### Under Consideration
+
+- Multi-Frame Collision Masks, Attaching Them To Sprites
+- Sprite As Resource, Editor
+- Animation As Resource, Editor
+- Nested Objects (objects as components)
+- Content Library Management (group content into different libraries and load and unload them as needed)
+- Correcting Imperfect Pixel Scaling
+- Custom-Made Content Pipeline
+
+### Not Planned
+
+- FMOD: Proprietary audio library, integrate it into your project yourself if you want to use it.
+- Physics: This engine is focused towards pixel art, where advanced physics usually aren't needed. I don't recommend using a physics engine if your game doesn't require it. If you really do need it, integrate an existing library on your own.
+- 3D
 
 ## Why?
 
