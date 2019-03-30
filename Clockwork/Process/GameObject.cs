@@ -41,8 +41,8 @@ namespace Clockwork.Process
 		
 		internal override void PreUpdate()
 		{
-			base.PreUpdate();
 			Animator.Update();
+			base.PreUpdate();
 		}
 
 		public override void Draw()

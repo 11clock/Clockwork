@@ -56,7 +56,7 @@ namespace Clockwork
 			_animations = new Dictionary<string, Animation>();
 		}
 
-		public void Update()
+		internal void Update()
 		{
 			_currentAnimation?.Update(Time.Delta * SpeedScale);
 		}
@@ -142,7 +142,7 @@ namespace Clockwork
 
 		public void Stop()
 		{
-			_currentAnimation.Stop();
+			_currentAnimation?.Stop();
 		}
 
 		public void Pause()
@@ -162,7 +162,7 @@ namespace Clockwork
 
 		public Animation GetByName(string name)
 		{
-			return _animations[name];
+			return _animations.ContainsKey(name) ? _animations[name] : null;
 		}
 		
 		

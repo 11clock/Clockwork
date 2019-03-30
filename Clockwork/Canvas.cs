@@ -56,7 +56,7 @@ namespace Clockwork
 				position,
 				sourceRectangle,
 				fcolor,
-				-Mathf.Deg2Rad(rotation),
+				Mathf.Deg2Rad(rotation),
 				sprite.Origin,
 				fscale,
 				effects,

@@ -63,6 +63,8 @@
     <Compile Include="Resolution.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="Time.cs" />
+    <Compile Include="Alarm.cs" />
+    <Compile Include="AlarmClock.cs" />
     <Compile Include="Utils\ColorUtils.cs" />
     <Compile Include="Utils\Extensions\EnumerableExtensions.cs" />
     <Compile Include="Utils\Mathf.cs" />
