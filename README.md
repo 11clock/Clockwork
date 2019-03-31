@@ -51,6 +51,7 @@ Works, but barebones and not yet useful.
 
 - FMOD: Proprietary audio library, integrate it into your project yourself if you want to use it.
 - Physics: This engine is focused towards pixel art, where advanced physics usually aren't needed. I don't recommend using a physics engine if your game doesn't require it. If you really do need it, integrate an existing library on your own.
+- Level Editor: Level editing needs can vary heavily from game to game (or not require a level editor at all), and many advanced GameMaker users ended up just making their own editors. I will compensate with support for a couple of popular 3rd party tilemap editors, though (Ogmo and Tiled).
 - 3D
 
 ## Why?
