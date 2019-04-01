@@ -31,22 +31,22 @@ namespace Clockwork
 
 		#region Constructors
 
-		public Sprite(Texture2D texture, Vector2 origin, int width, int height)
+		public Sprite(Texture2D texture, int width, int height, Vector2 origin)
 		{
 			SetProperties(texture, origin, width, height);
 		}
 
-		public Sprite(Texture2D texture, Alignment origin, int width, int height)
+		public Sprite(Texture2D texture, int width, int height, Alignment origin)
 		{
 			SetProperties(texture, origin, width, height);
 		}
 
-		public Sprite(string textureName, Vector2 origin, int width, int height)
+		public Sprite(string textureName, int width, int height, Vector2 origin)
 		{
 			SetProperties(textureName, origin, width, height);
 		}
 
-		public Sprite(string textureName, Alignment origin, int width, int height)
+		public Sprite(string textureName, int width, int height, Alignment origin)
 		{
 			SetProperties(textureName, origin, width, height);
 		}
@@ -55,25 +55,25 @@ namespace Clockwork
 
 		#region Advanced Constructors
 
-		public Sprite(Texture2D texture, Vector2 origin, int width, int height,
+		public Sprite(Texture2D texture, int width, int height, Vector2 origin,
 			int subimageCount, int subimagesPerRow, int hOffset, int vOffset)
 		{
 			SetProperties(texture, origin, width, height, subimageCount, subimagesPerRow, hOffset, vOffset);
 		}
 		
-		public Sprite(Texture2D texture, Alignment origin, int width, int height,
+		public Sprite(Texture2D texture, int width, int height, Alignment origin,
 			int subimageCount, int subimagesPerRow, int hOffset, int vOffset)
 		{
 			SetProperties(texture, origin, width, height, subimageCount, subimagesPerRow, hOffset, vOffset);
 		}
 		
-		public Sprite(string textureName, Vector2 origin, int width, int height,
+		public Sprite(string textureName, int width, int height, Vector2 origin,
 			int subimageCount, int subimagesPerRow, int hOffset, int vOffset)
 		{
 			SetProperties(textureName, origin, width, height, subimageCount, subimagesPerRow, hOffset, vOffset);
 		}
 		
-		public Sprite(string textureName, Alignment origin, int width, int height,
+		public Sprite(string textureName, int width, int height, Alignment origin,
 			int subimageCount, int subimagesPerRow, int hOffset, int vOffset)
 		{
 			SetProperties(textureName, origin, width, height, subimageCount, subimagesPerRow, hOffset, vOffset);

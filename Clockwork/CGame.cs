@@ -87,14 +87,13 @@ namespace Clockwork
 				Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
-			// TODO: Add your update logic here
-
 			Time.Delta = (float) gameTime.ElapsedGameTime.TotalSeconds;
 			_currentScene.PreUpdate();
 			_currentScene.BeginUpdate();
+			_currentScene.UpdateAlarms();
 			_currentScene.Update();
+			_currentScene.UpdateCollisions();
 			_currentScene.EndUpdate();
-			_currentScene.PostUpdate();
 
 			foreach (BaseObject go in _currentScene.RemoveQueue)
 			{
@@ -121,7 +120,10 @@ namespace Clockwork
 			Resolution.BeginDraw();
 			_spriteBatch.Begin(transformMatrix: Resolution.GetTransformationMatrix(),
 				samplerState: SamplerState.PointClamp);
+			
+			_currentScene.PreDraw();
 			_currentScene.Draw();
+			
 			_spriteBatch.End();
 
 			base.Draw(gameTime);

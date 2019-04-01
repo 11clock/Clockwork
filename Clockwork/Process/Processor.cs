@@ -15,11 +15,15 @@ namespace Clockwork.Process
 
 		internal virtual void PreUpdate()
 		{
-			AlarmClock.Update();
 		}
 		
 		public virtual void BeginUpdate()
 		{
+		}
+
+		internal virtual void UpdateAlarms()
+		{
+			AlarmClock.Update();
 		}
 
 		public virtual void Update()
@@ -30,7 +34,7 @@ namespace Clockwork.Process
 		{
 		}
 		
-		internal virtual void PostUpdate()
+		internal virtual void PreDraw()
 		{
 		}
 

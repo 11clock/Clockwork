@@ -30,19 +30,24 @@ namespace Clockwork.Process
 		}
 
 		public BBox BBox { get; set; }
-		public Vector2 TopLeft => BBox != null ? Position - BBox.Origin : Position;
-		public Vector2 BottomRight => BBox != null ? Position + BBox.Size - Vector2.One - BBox.Origin : Position;
+		public Vector2 TopLeft => BBox != null ? Position + BBox.TopLeft : Position;
+		public Vector2 BottomRight => BBox != null ? Position + BBox.BottomRight : Position;
 
 		public GameObject()
 		{
 			Image = new Image();
 			Animator = new Animator(Image);
 		}
-		
+
 		internal override void PreUpdate()
 		{
-			Animator.Update();
 			base.PreUpdate();
+			Animator.Update();
+		}
+
+		public virtual void OnCollision(GameObject other)
+		{
+			
 		}
 
 		public override void Draw()
@@ -69,6 +74,11 @@ namespace Clockwork.Process
 		public bool IsReleased(MouseButtons mouseButtons)
 		{
 			return IsHovered() && VMouse.IsButtonReleased(mouseButtons);
+		}
+
+		public bool CollidesWith(GameObject other)
+		{
+			return BBox.CollidesWith(Position, other.BBox, other.Position);
 		}
 
 		public bool IsHovered()

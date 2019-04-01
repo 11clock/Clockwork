@@ -7,6 +7,8 @@ namespace Clockwork
 	// Based on HaxeFlixel's animation system 
 	public class Animator
 	{
+		public const string DefaultAllName = "all";
+		
 		public string Name
 		{
 			get => _currentAnimation?.Name;
@@ -128,6 +130,13 @@ namespace Clockwork
 
 			_currentAnimation = _animations[name];
 			_currentAnimation.Play(forceRestart, reversed, startingFrame);
+		}
+
+		public void PlayAll(float fps, bool looped = true, Sprite sprite = null, bool forceRestart = false, bool reversed = false, int startingFrame = 0)
+		{
+			Remove(DefaultAllName);
+			AddAll(DefaultAllName, fps, looped, sprite);
+			Play(DefaultAllName, forceRestart, reversed, startingFrame);
 		}
 
 		public void Reset()
