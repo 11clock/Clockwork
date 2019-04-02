@@ -38,10 +38,6 @@ namespace Clockwork.Process
 		{
 		}
 
-		public virtual void OnSceneEnd()
-		{
-		}
-
 		public int CompareTo(BaseObject obj)
 		{
 			if (InstanceId > obj.InstanceId)

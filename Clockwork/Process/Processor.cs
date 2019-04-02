@@ -34,11 +34,23 @@ namespace Clockwork.Process
 		{
 		}
 		
+		internal virtual void PostUpdate()
+		{
+		}
+		
+		internal virtual void OnSceneEnd()
+		{
+		}
+		
 		internal virtual void PreDraw()
 		{
 		}
 
 		public virtual void Draw()
+		{
+		}
+		
+		internal virtual void PostDraw()
 		{
 		}
 	}

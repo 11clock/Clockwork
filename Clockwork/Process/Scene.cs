@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,56 +9,47 @@ namespace Clockwork.Process
 {
 	public class Scene : Processor
 	{
-		internal readonly List<BaseObject> Objects;
+		private readonly List<BaseObject> _objects;
 
-		internal readonly List<BaseObject> RemoveQueue;
+		private readonly List<BaseObject> _removeQueue;
+
+		private List<BaseObject> _orderedUpdateObjects;
+		private List<BaseObject> _orderedDrawObjects;
 
 		public Scene()
 		{
-			Objects = new List<BaseObject>();
-			RemoveQueue = new List<BaseObject>();
+			_objects = new List<BaseObject>();
+			_removeQueue = new List<BaseObject>();
 		}
 
 		internal override void PreUpdate()
 		{
 			base.PreUpdate();
-			
-			foreach (BaseObject go in GetOrderedUpdateObjects())
-			{
-				go.PreUpdate();	
-			}
+			_orderedUpdateObjects = GetOrderedUpdateObjects();
+			_orderedUpdateObjects.ForEach(go => go.PreUpdate());
 		}
 
 		public override void BeginUpdate()
 		{
 			base.BeginUpdate();
-			foreach (BaseObject go in GetOrderedUpdateObjects())
-			{
-				go.BeginUpdate();
-			}
+			_orderedUpdateObjects.ForEach(go => go.BeginUpdate());
 		}
 
 		internal override void UpdateAlarms()
 		{
 			base.UpdateAlarms();
-			foreach (BaseObject go in GetOrderedUpdateObjects())
-			{
-				go.UpdateAlarms();
-			}
+			_orderedUpdateObjects.ForEach(go => go.UpdateAlarms());
 		}
 
 		public override void Update()
 		{
 			base.Update();
-			foreach (BaseObject go in GetOrderedUpdateObjects())
-			{
-				go.Update();
-			}
+			_orderedUpdateObjects.ForEach(go => go.Update());
 		}
 
 		internal void UpdateCollisions()
 		{
-			List<GameObject> collisionObjects = GetOrderedCollisionObjects();
+			List<GameObject> collisionObjects = _orderedUpdateObjects.OfType<GameObject>().Where(go => go.BBox != null).ToList();
 			
 			foreach (GameObject go1 in collisionObjects)
 			{
@@ -77,70 +69,80 @@ namespace Clockwork.Process
 		public override void EndUpdate()
 		{
 			base.EndUpdate();
-			foreach (BaseObject go in GetOrderedUpdateObjects())
-			{
-				go.EndUpdate();
-			}
+			_orderedUpdateObjects.ForEach(go => go.EndUpdate());
+		}
+
+		internal override void PostUpdate()
+		{
+			base.PostUpdate();
+			_orderedUpdateObjects.ForEach(go => go.PostUpdate());
+			CleanRemoveQueue();
+		}
+		
+		internal override void OnSceneEnd()
+		{
+			base.OnSceneEnd();
+			GetOrderedUpdateObjects().ForEach(go => go.OnSceneEnd());
 		}
 
 		internal override void PreDraw()
 		{
 			base.PreDraw();
-			
-			foreach (BaseObject go in GetOrderedDrawObjects())
-            {
-            	go.PreDraw();
-            }
+			_orderedDrawObjects = GetOrderedDrawObjects();
+			_orderedDrawObjects.ForEach(go => go.PreDraw());
 		}
 
 		public override void Draw()
 		{
 			base.Draw();
-			foreach (BaseObject go in GetOrderedDrawObjects())
-			{
-				go.Draw();
-			}
+			_orderedDrawObjects.ForEach(go => go.Draw());
+		}
+		
+		internal override void PostDraw()
+		{
+			base.PostDraw();
+			_orderedDrawObjects.ForEach(go => go.PostDraw());
 		}
 
 		public T Add<T>(T go) where T : BaseObject
 		{
-			Objects.Add(go);
+			_objects.Add(go);
 			if (!go.Initialized)
 			{
-				go.Initialize();
+				go.StartInitialize();
 			}
-
 			go.OnAdd();
 			return go;
 		}
 
 		public T Add<T>(T go, Vector2 position) where T : GameObject
 		{
-			Objects.Add(go);
+			_objects.Add(go);
 			go.Position = position;
-			go.StartInitialize();
-			return go;
+            if (!go.Initialized)
+            {
+            	go.StartInitialize();
+            }
+            go.OnAdd();
+            return go;
 		}
 		
 		public T Add<T>(T go, float x, float y) where T : GameObject
 		{
-			Objects.Add(go);
-			go.Position = new Vector2(x, y);
-			go.StartInitialize();
-			return go;
+			return Add(go, new Vector2(x, y));
 		}
 
-		public void Remove(BaseObject go)
+		public void QueueRemove(BaseObject go)
 		{
-			if (!RemoveQueue.Contains(go))
+			if (!_removeQueue.Contains(go))
 			{
-				RemoveQueue.Add(go);
+				_removeQueue.Add(go);
 			}
 		}
 
-		public bool IsDestroyed(BaseObject go)
+		public bool Contains(BaseObject go)
 		{
-			return !Objects.Contains(go);
+			return !_objects.Contains(go);
 		}
 
 		public void Goto(Scene nextScene)
@@ -150,22 +152,26 @@ namespace Clockwork.Process
 
 		private List<BaseObject> GetOrderedUpdateObjects()
 		{
-			List<BaseObject> orderedUpdateObjects = new List<BaseObject>(Objects.Where(o => o.Active).Except(RemoveQueue).ToList());
+			List<BaseObject> orderedUpdateObjects = new List<BaseObject>(_objects.Where(o => o.Active).ToList());
             orderedUpdateObjects.Sort(new ObjectUpdateOrderer());
 			return orderedUpdateObjects;
 		}
 		
 		private List<BaseObject> GetOrderedDrawObjects()
         {
-        	List<BaseObject> orderedDrawObjects = new List<BaseObject>(Objects.Where(o => o.Visible).ToList());
+        	List<BaseObject> orderedDrawObjects = new List<BaseObject>(_objects.Where(o => o.Visible).ToList());
             orderedDrawObjects.Sort(new ObjectDrawOrderer());
         	return orderedDrawObjects;
         }
 
-		private List<GameObject> GetOrderedCollisionObjects()
+		private void CleanRemoveQueue()
 		{
-			List<GameObject> collisionObjects = new List<GameObject>(GetOrderedUpdateObjects().OfType<GameObject>().Where(go => go.BBox != null));
-			return collisionObjects;
+			foreach (BaseObject go in _removeQueue)
+			{
+				go.OnRemove();
+				_objects.Remove(go);
+			}
+			_removeQueue.Clear();
 		}
 
 		private class ObjectUpdateOrderer : IComparer<BaseObject>

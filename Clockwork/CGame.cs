@@ -88,21 +88,19 @@ namespace Clockwork
 				Exit();
 
 			Time.Delta = (float) gameTime.ElapsedGameTime.TotalSeconds;
+			
+			
 			_currentScene.PreUpdate();
+			
 			_currentScene.BeginUpdate();
 			_currentScene.UpdateAlarms();
 			_currentScene.Update();
 			_currentScene.UpdateCollisions();
 			_currentScene.EndUpdate();
+			
+			_currentScene.PostUpdate();
 
-			foreach (BaseObject go in _currentScene.RemoveQueue)
-			{
-				go.OnRemove();
-				_currentScene.Objects.Remove(go);
-			}
-
-			_currentScene.RemoveQueue.Clear();
-
+			
 			if (QueuedScene != null)
 			{
 				InitializeQueuedScene();
@@ -123,7 +121,7 @@ namespace Clockwork
 			
 			_currentScene.PreDraw();
 			_currentScene.Draw();
-			
+			_currentScene.PostDraw();
 			_spriteBatch.End();
 
 			base.Draw(gameTime);
@@ -131,13 +129,7 @@ namespace Clockwork
 
 		private void InitializeQueuedScene()
 		{
-			if (_currentScene != null)
-			{
-				foreach (BaseObject go in _currentScene.Objects)
-				{
-					go.OnSceneEnd();
-				}
-			}
+			_currentScene?.OnSceneEnd();
 
 			_currentScene = QueuedScene;
 			QueuedScene = null;
