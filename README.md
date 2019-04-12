@@ -25,7 +25,7 @@ Works, but barebones and not yet useful.
 
 ### Planned
 
-- Collision Masks & Checking
+- Collision Checking (only bounding box for now)
 - Cameras
 - Drawing Text
 - Scene Enhancements, Groups
