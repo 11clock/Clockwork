@@ -25,18 +25,22 @@ Works, but barebones and not yet useful.
 
 ### Planned
 
+#### Soon
 - Collision Checking (only bounding box for now)
 - Cameras
 - Drawing Text
 - Scene Enhancements, Groups
-- Tile Maps, Ogmo and Tiled Support
-- Aseprite Metadata As Resource (converting Aseprite metadata into sprites and animations)
-- Animation: Individual Frame Delays (have some frames last longer than others without needing to register them multiple times)
-- Animation: Callbacks
+- Tile Maps: Ogmo
 - Basic Audio
 - More Game Control (fullscreen, changing window size post-launch, stretched mode)
 - Gamepad Input
+
+#### Later
+- Aseprite Metadata As Resource (converting Aseprite metadata into sprites and animations)
+- Animation: Individual Frame Delays (have some frames last longer than others without needing to register them multiple times)
+- Animation: Callbacks
 - More Collision Shapes (circles, polygons)
+- Tile Maps: Tiled
 
 ### Under Consideration
 
