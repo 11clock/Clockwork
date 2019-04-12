@@ -36,6 +36,7 @@ Works, but barebones and not yet useful.
 - Basic Audio
 - More Game Control (fullscreen, changing window size post-launch, stretched mode)
 - Gamepad Input
+- More Collision Shapes (circles, polygons)
 
 ### Under Consideration
 
