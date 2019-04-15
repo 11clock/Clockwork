@@ -1,10 +1,12 @@
+using System.Collections.Generic;
+
 namespace Clockwork
 {
 	public class Animation
 	{
 		public Animator Parent { get; }
 		public string Name { get; }
-		
+
 		public Sprite Sprite { get; }
 
 		public int CurrentSubimage
@@ -37,9 +39,9 @@ namespace Clockwork
 			get => _currentFrame;
 			set
 			{
-				if (Sprite != null)
+				if (Sprite != null && Sprite != Parent.Image.Sprite)
 					Parent.Image.Sprite = Sprite;
-				
+
 				int lastFrame = FrameCount - 1;
 				int tempFrame = Reversed ? lastFrame - value : value;
 
@@ -82,11 +84,12 @@ namespace Clockwork
 		private int _currentFrame;
 		private int _currentSubimage;
 
-		public Animation(Animator parent, string name, int[] subimages, float fps, bool looped = true, Sprite sprite = null)
+		public Animation(Animator parent, string name, int[] subimages, float fps, bool looped = true,
+			Sprite sprite = null)
 		{
 			Parent = parent;
 			Name = name;
-			
+
 			Fps = fps;
 			Subimages = subimages;
 			Looped = looped;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Clockwork.DataTypes;
 using Clockwork.Input;
 using Microsoft.Xna.Framework;
@@ -47,7 +48,6 @@ namespace Clockwork.Process
 
 		public virtual void OnCollision(GameObject other)
 		{
-			
 		}
 
 		public override void Draw()
@@ -60,6 +60,8 @@ namespace Clockwork.Process
 		{
 			Canvas.DrawImage(Image, Position);
 		}
+
+		#region Mouse Input
 
 		public bool IsPressed(MouseButtons mouseButtons)
 		{
@@ -76,11 +78,6 @@ namespace Clockwork.Process
 			return IsHovered() && VMouse.IsButtonReleased(mouseButtons);
 		}
 
-		public bool CollidesWith(GameObject other)
-		{
-			return BBox.CollidesWith(Position, other.BBox, other.Position);
-		}
-
 		public bool IsHovered()
 		{
 			if (BBox == null)
@@ -89,5 +86,76 @@ namespace Clockwork.Process
 			return mousePosition.X >= TopLeft.X && mousePosition.X <= BottomRight.X &&
 					mousePosition.Y >= TopLeft.Y && mousePosition.Y <= BottomRight.Y;
 		}
+
+		#endregion
+
+		#region Collision With GameObject
+
+		public bool CollidesWith(GameObject other)
+		{
+			return CollidesWith(Position, other);
+		}
+
+		public bool CollidesWith(Vector2 position, GameObject other)
+		{
+			return BBox.CollidesWith(position, other.BBox, other.Position);
+		}
+
+		public bool CollidesWith<T>() where T : GameObject
+		{
+			return CollidesWith<T>(Position);
+		}
+
+		public bool CollidesWith<T>(Vector2 position) where T : GameObject
+		{
+			List<T> others = Scene.GetObjects<T>();
+			foreach (T other in others)
+			{
+				if (CollidesWith(position, other))
+					return true;
+			}
+
+			return false;
+		}
+
+		#endregion
+
+		#region Collision With Position
+
+		public bool CollidesWith(Vector2 otherPosition)
+		{
+			return BBox.CollidesWith(Position, otherPosition);
+		}
+
+		public bool CollidesWith(Vector2 position, Vector2 otherPosition)
+		{
+			return BBox.CollidesWith(position, otherPosition);
+		}
+
+		#endregion
+
+		#region Get Collided Shortcuts
+
+		public T GetCollided<T>() where T : GameObject
+		{
+			return Scene.GetCollided<T>(this);
+		}
+
+		public List<T> GetCollidedList<T>() where T : GameObject
+		{
+			return Scene.GetCollidedList<T>(this);
+		}
+
+		public T GetCollided<T>(Vector2 position) where T : GameObject
+		{
+			return Scene.GetCollided<T>(this, position);
+		}
+
+		public List<T> GetCollidedList<T>(Vector2 position) where T : GameObject
+		{
+			return Scene.GetCollidedList<T>(this, position);
+		}
+
+		#endregion
 	}
 }

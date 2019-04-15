@@ -9,6 +9,8 @@ namespace Clockwork.Process
 
 		public long InstanceId { get; private set; }
 
+		public Scene Scene { get; internal set; }
+
 		public int UpdateOrder { get; set; }
 		public int DrawOrder { get; set; }
 

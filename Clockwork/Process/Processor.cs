@@ -8,7 +8,7 @@ namespace Clockwork.Process
 		{
 			AlarmClock = new AlarmClock(this);
 		}
-		
+
 		public virtual void Initialize()
 		{
 		}
@@ -16,7 +16,7 @@ namespace Clockwork.Process
 		internal virtual void PreUpdate()
 		{
 		}
-		
+
 		public virtual void BeginUpdate()
 		{
 		}
@@ -33,15 +33,15 @@ namespace Clockwork.Process
 		public virtual void EndUpdate()
 		{
 		}
-		
+
 		internal virtual void PostUpdate()
 		{
 		}
-		
+
 		internal virtual void OnSceneEnd()
 		{
 		}
-		
+
 		internal virtual void PreDraw()
 		{
 		}
@@ -49,7 +49,7 @@ namespace Clockwork.Process
 		public virtual void Draw()
 		{
 		}
-		
+
 		internal virtual void PostDraw()
 		{
 		}

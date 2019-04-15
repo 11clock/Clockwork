@@ -46,7 +46,6 @@
     <Compile Include="Animator.cs" />
     <Compile Include="CGame.cs" />
     <Compile Include="Collisions\BBox.cs" />
-    <Compile Include="Collisions\CollisionSystem.cs" />
     <Compile Include="DataTypes\MatrixVector.cs" />
     <Compile Include="Canvas.cs" />
     <Compile Include="Enums.cs" />

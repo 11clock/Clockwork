@@ -7,6 +7,7 @@ namespace Clockwork
 	public class Image
 	{
 		private Sprite _sprite;
+
 		public Sprite Sprite
 		{
 			get => _sprite;
@@ -18,6 +19,7 @@ namespace Clockwork
 		}
 
 		private float _rotation;
+
 		public float Rotation
 		{
 			get => _rotation;
@@ -30,6 +32,7 @@ namespace Clockwork
 		public bool FlipY { get; set; }
 
 		private int _subimage;
+
 		public int Subimage
 		{
 			get => _subimage;

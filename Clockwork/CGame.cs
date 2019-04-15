@@ -18,9 +18,9 @@ namespace Clockwork
 		private GraphicsDeviceManager _graphics;
 		private SpriteBatch _spriteBatch;
 
-		internal Scene QueuedScene = null;
+		internal Scene QueuedScene;
 
-		private Scene _currentScene = null;
+		private Scene _currentScene;
 
 		public static Scene CurrentScene => Game._currentScene;
 
@@ -88,19 +88,19 @@ namespace Clockwork
 				Exit();
 
 			Time.Delta = (float) gameTime.ElapsedGameTime.TotalSeconds;
-			
-			
+
+
 			_currentScene.PreUpdate();
-			
+
 			_currentScene.BeginUpdate();
 			_currentScene.UpdateAlarms();
 			_currentScene.Update();
 			_currentScene.UpdateCollisions();
 			_currentScene.EndUpdate();
-			
+
 			_currentScene.PostUpdate();
 
-			
+
 			if (QueuedScene != null)
 			{
 				InitializeQueuedScene();
@@ -118,7 +118,7 @@ namespace Clockwork
 			Resolution.BeginDraw();
 			_spriteBatch.Begin(transformMatrix: Resolution.GetTransformationMatrix(),
 				samplerState: SamplerState.PointClamp);
-			
+
 			_currentScene.PreDraw();
 			_currentScene.Draw();
 			_currentScene.PostDraw();

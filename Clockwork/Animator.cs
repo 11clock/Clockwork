@@ -8,7 +8,7 @@ namespace Clockwork
 	public class Animator
 	{
 		public const string DefaultAllName = "all";
-		
+
 		public string Name
 		{
 			get => _currentAnimation?.Name;
@@ -37,7 +37,8 @@ namespace Clockwork
 		public bool Finished
 		{
 			get => _currentAnimation?.Finished ?? true;
-			set {
+			set
+			{
 				if (value)
 				{
 					_currentAnimation?.Finish();
@@ -76,13 +77,14 @@ namespace Clockwork
 				_animations[name] = animation;
 			}
 		}
-		
+
 		public void Add(string name, int subimage, bool looped = true, Sprite sprite = null)
 		{
-			Add(name, new []{subimage}, 0f, looped, sprite);
+			Add(name, new[] {subimage}, 0f, looped, sprite);
 		}
-		
-		public void AddRange(string name, int firstSubimage, int lastSubimage, float fps, bool looped = true, Sprite sprite = null)
+
+		public void AddRange(string name, int firstSubimage, int lastSubimage, float fps, bool looped = true,
+			Sprite sprite = null)
 		{
 			Add(name, CommonUtils.Sequence(firstSubimage, lastSubimage).ToArray(), fps, looped, sprite);
 		}
@@ -115,6 +117,7 @@ namespace Clockwork
 				{
 					_currentAnimation.Stop();
 				}
+
 				_currentAnimation = null;
 			}
 
@@ -132,7 +135,8 @@ namespace Clockwork
 			_currentAnimation.Play(forceRestart, reversed, startingFrame);
 		}
 
-		public void PlayAll(float fps, bool looped = true, Sprite sprite = null, bool forceRestart = false, bool reversed = false, int startingFrame = 0)
+		public void PlayAll(float fps, bool looped = true, Sprite sprite = null, bool forceRestart = false,
+			bool reversed = false, int startingFrame = 0)
 		{
 			Remove(DefaultAllName);
 			AddAll(DefaultAllName, fps, looped, sprite);
@@ -173,7 +177,5 @@ namespace Clockwork
 		{
 			return _animations.ContainsKey(name) ? _animations[name] : null;
 		}
-		
-		
 	}
 }

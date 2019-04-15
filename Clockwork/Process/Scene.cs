@@ -49,8 +49,9 @@ namespace Clockwork.Process
 
 		internal void UpdateCollisions()
 		{
-			List<GameObject> collisionObjects = _orderedUpdateObjects.OfType<GameObject>().Where(go => go.BBox != null).ToList();
-			
+			List<GameObject> collisionObjects =
+				_orderedUpdateObjects.OfType<GameObject>().Where(go => go.BBox != null).ToList();
+
 			foreach (GameObject go1 in collisionObjects)
 			{
 				foreach (GameObject go2 in collisionObjects)
@@ -78,7 +79,7 @@ namespace Clockwork.Process
 			_orderedUpdateObjects.ForEach(go => go.PostUpdate());
 			CleanRemoveQueue();
 		}
-		
+
 		internal override void OnSceneEnd()
 		{
 			base.OnSceneEnd();
@@ -97,7 +98,7 @@ namespace Clockwork.Process
 			base.Draw();
 			_orderedDrawObjects.ForEach(go => go.Draw());
 		}
-		
+
 		internal override void PostDraw()
 		{
 			base.PostDraw();
@@ -107,10 +108,12 @@ namespace Clockwork.Process
 		public T Add<T>(T go) where T : BaseObject
 		{
 			_objects.Add(go);
+			go.Scene = this;
 			if (!go.Initialized)
 			{
 				go.StartInitialize();
 			}
+
 			go.OnAdd();
 			return go;
 		}
@@ -118,15 +121,17 @@ namespace Clockwork.Process
 		public T Add<T>(T go, Vector2 position) where T : GameObject
 		{
 			_objects.Add(go);
+			go.Scene = this;
 			go.Position = position;
-            if (!go.Initialized)
-            {
-            	go.StartInitialize();
-            }
-            go.OnAdd();
-            return go;
+			if (!go.Initialized)
+			{
+				go.StartInitialize();
+			}
+
+			go.OnAdd();
+			return go;
 		}
-		
+
 		public T Add<T>(T go, float x, float y) where T : GameObject
 		{
 			return Add(go, new Vector2(x, y));
@@ -150,19 +155,85 @@ namespace Clockwork.Process
 			CGame.Game.QueuedScene = nextScene;
 		}
 
+		public List<BaseObject> GetObjects()
+		{
+			return new List<BaseObject>(_objects);
+		}
+
+		public List<T> GetObjects<T>() where T : BaseObject
+		{
+			return _objects.Where(o => o is T).Cast<T>().ToList();
+		}
+
+		public T GetCollided<T>(GameObject go) where T : GameObject
+		{
+			return GetCollided<T>(go, go.Position);
+		}
+
+		public List<T> GetCollidedList<T>(GameObject go) where T : GameObject
+		{
+			return GetCollidedList<T>(go, go.Position);
+		}
+
+		public T GetCollided<T>(GameObject go, Vector2 position) where T : GameObject
+		{
+			foreach (T other in GetObjects<T>())
+			{
+				if (go.CollidesWith(position, other))
+					return other;
+			}
+
+			return null;
+		}
+
+		public List<T> GetCollidedList<T>(GameObject go, Vector2 position) where T : GameObject
+		{
+			List<T> collided = new List<T>();
+			foreach (T other in GetObjects<T>())
+			{
+				if (go.CollidesWith(position, other))
+					collided.Add(other);
+			}
+
+			return collided;
+		}
+
+		public T GetCollided<T>(Vector2 position) where T : GameObject
+		{
+			foreach (T other in GetObjects<T>())
+			{
+				if (other.CollidesWith(position))
+					return other;
+			}
+
+			return null;
+		}
+
+		public List<T> GetCollidedList<T>(Vector2 position) where T : GameObject
+		{
+			List<T> collided = new List<T>();
+			foreach (T other in GetObjects<T>())
+			{
+				if (other.CollidesWith(position))
+					collided.Add(other);
+			}
+
+			return collided;
+		}
+
 		private List<BaseObject> GetOrderedUpdateObjects()
 		{
-			List<BaseObject> orderedUpdateObjects = new List<BaseObject>(_objects.Where(o => o.Active).ToList());
-            orderedUpdateObjects.Sort(new ObjectUpdateOrderer());
+			List<BaseObject> orderedUpdateObjects = _objects.Where(o => o.Active).ToList();
+			orderedUpdateObjects.Sort(new ObjectUpdateOrderer());
 			return orderedUpdateObjects;
 		}
-		
+
 		private List<BaseObject> GetOrderedDrawObjects()
-        {
-        	List<BaseObject> orderedDrawObjects = new List<BaseObject>(_objects.Where(o => o.Visible).ToList());
-            orderedDrawObjects.Sort(new ObjectDrawOrderer());
-        	return orderedDrawObjects;
-        }
+		{
+			List<BaseObject> orderedDrawObjects = _objects.Where(o => o.Visible).ToList();
+			orderedDrawObjects.Sort(new ObjectDrawOrderer());
+			return orderedDrawObjects;
+		}
 
 		private void CleanRemoveQueue()
 		{
@@ -170,7 +241,9 @@ namespace Clockwork.Process
 			{
 				go.OnRemove();
 				_objects.Remove(go);
+				go.Scene = null;
 			}
+
 			_removeQueue.Clear();
 		}
 

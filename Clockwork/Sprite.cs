@@ -22,9 +22,9 @@ namespace Clockwork
 		public int Width { get; private set; }
 
 		public int Height { get; private set; }
-		
+
 		public int HOffset { get; private set; }
-		
+
 		public int VOffset { get; private set; }
 
 		public Vector2 Origin { get; set; }
@@ -60,19 +60,19 @@ namespace Clockwork
 		{
 			SetProperties(texture, origin, width, height, subimageCount, subimagesPerRow, hOffset, vOffset);
 		}
-		
+
 		public Sprite(Texture2D texture, int width, int height, Alignment origin,
 			int subimageCount, int subimagesPerRow, int hOffset, int vOffset)
 		{
 			SetProperties(texture, origin, width, height, subimageCount, subimagesPerRow, hOffset, vOffset);
 		}
-		
+
 		public Sprite(string textureName, int width, int height, Vector2 origin,
 			int subimageCount, int subimagesPerRow, int hOffset, int vOffset)
 		{
 			SetProperties(textureName, origin, width, height, subimageCount, subimagesPerRow, hOffset, vOffset);
 		}
-		
+
 		public Sprite(string textureName, int width, int height, Alignment origin,
 			int subimageCount, int subimagesPerRow, int hOffset, int vOffset)
 		{
@@ -80,7 +80,7 @@ namespace Clockwork
 		}
 
 		#endregion
-		
+
 		#region SetProperties
 
 		private void SetProperties(Texture2D texture, Vector2 origin, int width, int height,
@@ -127,20 +127,20 @@ namespace Clockwork
 			if (subimageCount != null && subimagesPerRow != null && hOffset != null && vOffset != null)
 			{
 				SubimageCount = (int) subimageCount;
-                Width = Mathf.Max(width, 1);
-                Height = Mathf.Max(height, 1);
-                Rows = Mathf.CeilToInt(SubimageCount / (float) subimagesPerRow);
-                Cols = (int) subimagesPerRow;
-                HOffset = (int) hOffset;
-                VOffset = (int) vOffset;
+				Width = Mathf.Max(width, 1);
+				Height = Mathf.Max(height, 1);
+				Rows = Mathf.CeilToInt(SubimageCount / (float) subimagesPerRow);
+				Cols = (int) subimagesPerRow;
+				HOffset = (int) hOffset;
+				VOffset = (int) vOffset;
 			}
 			else
 			{
 				Width = Mathf.Max(width, 1);
-                Height = Mathf.Max(height, 1);
-                Rows = Mathf.FloorToInt((float) Texture.Height / Height);
-                Cols = Mathf.FloorToInt((float) Texture.Width / Width);
-                SubimageCount = Rows * Cols;
+				Height = Mathf.Max(height, 1);
+				Rows = Mathf.FloorToInt((float) Texture.Height / Height);
+				Cols = Mathf.FloorToInt((float) Texture.Width / Width);
+				SubimageCount = Rows * Cols;
 			}
 		}
 

@@ -8,7 +8,7 @@ namespace Clockwork
 	public class BBox
 	{
 		public Vector2 Size { get; set; }
-		
+
 		public float Width
 		{
 			get => Size.X;
@@ -26,7 +26,7 @@ namespace Clockwork
 		public Vector2 TopLeft => -Origin;
 
 		public Vector2 BottomRight => Size - Vector2.One - Origin;
-		
+
 		public BBox(Vector2 size, Vector2 origin)
 		{
 			Size = size;
@@ -38,7 +38,7 @@ namespace Clockwork
 			Size = size;
 			SetOrigin(origin);
 		}
-		
+
 		public BBox(float width, float height, Vector2 origin)
 		{
 			Size = new Vector2(width, height);
@@ -96,18 +96,25 @@ namespace Clockwork
 
 			return DoOverlap(l1, r1, l2, r2);
 		}
-		
-		private bool DoOverlap(Vector2 l1, Vector2 r1, Vector2 l2, Vector2 r2) 
-		{ 
+
+		public bool CollidesWith(Vector2 position, Vector2 otherPosition)
+		{
+			Vector2 l1 = position + TopLeft;
+			Vector2 r1 = position + BottomRight;
+			return DoOverlap(l1, r1, otherPosition, otherPosition);
+		}
+
+		private bool DoOverlap(Vector2 l1, Vector2 r1, Vector2 l2, Vector2 r2)
+		{
 			// If one rectangle is on left side of other 
-			if (l1.X > r2.X || l2.X > r1.X) 
-				return false; 
-  
+			if (l1.X > r2.X || l2.X > r1.X)
+				return false;
+
 			// If one rectangle is above other 
-			if (l1.Y > r2.Y || l2.Y > r1.Y) 
-				return false; 
-  
-			return true; 
-		} 
+			if (l1.Y > r2.Y || l2.Y > r1.Y)
+				return false;
+
+			return true;
+		}
 	}
 }

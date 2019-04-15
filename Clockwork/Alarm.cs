@@ -7,9 +7,9 @@ namespace Clockwork
 	public class Alarm
 	{
 		public Action Action { get; }
-		
+
 		public bool Paused { get; set; }
-		
+
 		public float TimeLeft { get; set; }
 		public float TotalTime { get; set; }
 
@@ -27,7 +27,7 @@ namespace Clockwork
 		{
 			if (Finished || Paused)
 				return;
-			
+
 			TimeLeft -= Time.Delta;
 			if (TimeLeft <= 0f)
 			{
@@ -49,7 +49,6 @@ namespace Clockwork
 				Finished = false;
 				Paused = false;
 			}
-			
 		}
 
 		public void Stop()
@@ -67,6 +66,5 @@ namespace Clockwork
 		{
 			Paused = false;
 		}
-		
 	}
 }

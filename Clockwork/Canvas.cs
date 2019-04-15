@@ -28,11 +28,12 @@ namespace Clockwork
 			int row = (int) ((subimage % sprite.SubimageCount) / (float) sprite.Cols);
 			int column = (subimage % sprite.SubimageCount) % sprite.Cols;
 
-			Rectangle sourceRectangle = new Rectangle(width * column + sprite.HOffset, height * row + sprite.VOffset, width, height);
+			Rectangle sourceRectangle = new Rectangle(width * column + sprite.HOffset, height * row + sprite.VOffset,
+				width, height);
 
 			if (sourceRectangle.X + sourceRectangle.Width > sprite.Texture.Width ||
 				sourceRectangle.Y + sourceRectangle.Height > sprite.Texture.Height ||
-				sourceRectangle.X < 0f || sourceRectangle.Y < 0f )
+				sourceRectangle.X < 0f || sourceRectangle.Y < 0f)
 			{
 				return;
 			}
@@ -65,7 +66,8 @@ namespace Clockwork
 
 		public static void DrawImage(Image image, Vector2 position)
 		{
-			DrawSprite(image.Sprite, position, Mathf.FloorToInt(image.Subimage), image.Scale, image.Rotation, image.Color, image.FlipX,
+			DrawSprite(image.Sprite, position, Mathf.FloorToInt(image.Subimage), image.Scale, image.Rotation,
+				image.Color, image.FlipX,
 				image.FlipY);
 		}
 	}

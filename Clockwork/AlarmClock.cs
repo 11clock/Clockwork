@@ -7,7 +7,7 @@ namespace Clockwork
 	public class AlarmClock
 	{
 		public Processor Parent { get; }
-		
+
 		private Dictionary<string, Alarm> _alarms;
 
 		public AlarmClock(Processor parent)
@@ -24,8 +24,8 @@ namespace Clockwork
 				alarm.Update();
 			}
 
-			List<KeyValuePair<string,Alarm>> expiredPairs = new List<KeyValuePair<string,Alarm>>();
-			foreach (KeyValuePair<string,Alarm> pair in _alarms)
+			List<KeyValuePair<string, Alarm>> expiredPairs = new List<KeyValuePair<string, Alarm>>();
+			foreach (KeyValuePair<string, Alarm> pair in _alarms)
 			{
 				Alarm alarm = pair.Value;
 				if (alarm.Temporary)
@@ -33,14 +33,14 @@ namespace Clockwork
 					if (alarm.Finished)
 					{
 						expiredPairs.Add(pair);
-					}	
+					}
 				}
 			}
+
 			foreach (KeyValuePair<string, Alarm> pair in expiredPairs)
 			{
 				_alarms.Remove(pair.Key);
 			}
-			
 		}
 
 		public void Add(Action action, float totalTime = 0f)
@@ -111,7 +111,7 @@ namespace Clockwork
 		{
 			return Get(action.Method.Name);
 		}
-		
+
 		public Alarm Get(string actionName)
 		{
 			return _alarms.ContainsKey(actionName) ? _alarms[actionName] : null;
