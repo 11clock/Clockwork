@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Clockwork.DataTypes;
 using Clockwork.Input;
 using Microsoft.Xna.Framework;
 

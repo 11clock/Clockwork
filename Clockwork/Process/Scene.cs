@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Clockwork.Libraries;
 using Microsoft.Xna.Framework;
 
 namespace Clockwork.Process
@@ -49,6 +47,8 @@ namespace Clockwork.Process
 
 		internal void UpdateCollisions()
 		{
+			Dictionary<GameObject, GameObject> collisions = new Dictionary<GameObject, GameObject>();
+			
 			List<GameObject> collisionObjects =
 				_orderedUpdateObjects.OfType<GameObject>().Where(go => go.BBox != null).ToList();
 
@@ -61,9 +61,14 @@ namespace Clockwork.Process
 
 					if (go1.CollidesWith(go2))
 					{
-						go1.OnCollision(go2);
+						collisions[go1] = go2;
 					}
 				}
+			}
+
+			foreach (KeyValuePair<GameObject,GameObject> collision in collisions)
+			{
+				collision.Key.OnCollision(collision.Value);
 			}
 		}
 

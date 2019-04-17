@@ -51,7 +51,7 @@ namespace Clockwork
 			{
 				effects = effects | SpriteEffects.FlipVertically;
 			}
-
+			//new Vector2(Mathf.Floor(position.X), Mathf.Floor(position.Y))
 			SpriteBatch.Draw(
 				sprite.Texture,
 				position,

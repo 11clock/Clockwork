@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Clockwork.Utils;
 using Microsoft.Xna.Framework;
 

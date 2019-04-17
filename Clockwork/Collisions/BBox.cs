@@ -1,6 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
-using Clockwork.DataTypes;
 using Microsoft.Xna.Framework;
 
 namespace Clockwork

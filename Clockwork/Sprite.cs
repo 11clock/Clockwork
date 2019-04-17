@@ -1,5 +1,4 @@
 using System;
-using Clockwork.DataTypes;
 using Clockwork.Libraries;
 using Clockwork.Utils;
 using Microsoft.Xna.Framework;

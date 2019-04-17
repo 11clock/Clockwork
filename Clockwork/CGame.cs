@@ -1,5 +1,4 @@
-﻿using System;
-using Clockwork.Input;
+﻿using Clockwork.Input;
 using Clockwork.Libraries;
 using Clockwork.Process;
 using Microsoft.Xna.Framework;
