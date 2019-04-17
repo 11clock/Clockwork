@@ -22,25 +22,28 @@ Works, but barebones and not yet useful.
 - Mouse Detection On Game Objects
 - RNG
 - Alarm Clock (delayed method calls)
+- Collision Checking (only bounding box and position for now)
 
 ### Planned
 
 #### Soon
-- Collision Checking (only bounding box for now)
-- Cameras
 - Drawing Text
-- Scene Enhancements, Groups
-- Tile Maps: Ogmo
+- Camera
 - Basic Audio
-- More Game Control (fullscreen, changing window size post-launch, stretched mode)
+- More Game Control (fullscreen, changing window size post-launch)
 - Gamepad Input
 
 #### Later
+- Scene Enhancements, Groups
+- Tile Maps: Ogmo
 - Aseprite Metadata As Resource (converting Aseprite metadata into sprites and animations)
 - Animation: Individual Frame Delays (have some frames last longer than others without needing to register them multiple times)
 - Animation: Callbacks
-- More Collision Shapes (circles, polygons)
+- Shape Collision Checking (rectangles, lines, circles, polygons)
+- Collision Mask (replaces bounding box, allows more collision shapes)
 - Tile Maps: Tiled
+- Project Configuration XML
+- Drawing Shapes
 
 ### Under Consideration
 
@@ -51,6 +54,7 @@ Works, but barebones and not yet useful.
 - Content Library Management (group content into different libraries and load and unload them as needed)
 - Correcting Imperfect Pixel Scaling
 - Custom-Made Content Pipeline
+- Multiple Cameras
 
 ### Not Planned
 
